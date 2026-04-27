@@ -191,7 +191,6 @@ helium/core/custom-profile-avatar.patch
 
 helium/settings/settings-page-icons.patch
 helium/settings/move-search-suggest.patch
-helium/settings/remove-autofill.patch
 helium/settings/remove-profile-page-sections.patch
 helium/settings/fix-page-names.patch
 helium/settings/disable-safety-hub-page.patch
@@ -272,7 +271,6 @@ helium/ui/helium-color-scheme.patch
 helium/ui/improve-flags-webui.patch
 helium/ui/ublock-show-in-settings.patch
 helium/ui/licenses-in-credits.patch
-helium/ui/remove-autofill-link-to-password-manager.patch
 helium/ui/fix-caption-button-bounds.patch
 helium/ui/find-bar.patch
 helium/ui/remove-zoom-action.patch
