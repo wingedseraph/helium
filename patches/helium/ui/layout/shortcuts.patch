@@ -117,7 +117,8 @@
      {ui::VKEY_R, ui::EF_SHIFT_DOWN | ui::EF_PLATFORM_ACCELERATOR,
       IDC_RELOAD_BYPASSING_CACHE},
 -    {ui::VKEY_S, ui::EF_PLATFORM_ACCELERATOR, IDC_SAVE_PAGE},
-+    {ui::VKEY_S, ui::EF_PLATFORM_ACCELERATOR, IDC_CTRL_S_SHORTCUT},
++    {ui::VKEY_S, ui::EF_PLATFORM_ACCELERATOR, IDC_SAVE_PAGE},
++    {ui::VKEY_E, ui::EF_PLATFORM_ACCELERATOR, IDC_CTRL_S_SHORTCUT},
      {ui::VKEY_9, ui::EF_PLATFORM_ACCELERATOR, IDC_SELECT_LAST_TAB},
      {ui::VKEY_NUMPAD9, ui::EF_PLATFORM_ACCELERATOR, IDC_SELECT_LAST_TAB},
  #if BUILDFLAG(IS_LINUX)
@@ -127,7 +128,7 @@
        {true,  false, false, false, kVK_ANSI_9,            IDC_SELECT_LAST_TAB},
        {true,  false, false, false, kVK_ANSI_Keypad9,      IDC_SELECT_LAST_TAB},
  
-+      {true,  false, false, false, kVK_ANSI_S,            IDC_CTRL_S_SHORTCUT},
++      {true,  false, false, false, kVK_ANSI_E,            IDC_CTRL_S_SHORTCUT},
 +
        {true,  true,  false, false, kVK_ANSI_M,            IDC_SHOW_AVATAR_MENU},
        {true,  false, false, true,  kVK_ANSI_L,            IDC_SHOW_DOWNLOADS},
@@ -139,7 +140,8 @@
      {IDC_PRINT, ui::EF_COMMAND_DOWN, ui::VKEY_P},
      {IDC_RESTORE_TAB, ui::EF_COMMAND_DOWN | ui::EF_SHIFT_DOWN, ui::VKEY_T},
 -    {IDC_SAVE_PAGE, ui::EF_COMMAND_DOWN, ui::VKEY_S},
-+    {IDC_CTRL_S_SHORTCUT, ui::EF_COMMAND_DOWN, ui::VKEY_S},
++    {IDC_SAVE_PAGE, ui::EF_COMMAND_DOWN, ui::VKEY_S},
++    {IDC_CTRL_S_SHORTCUT, ui::EF_COMMAND_DOWN, ui::VKEY_E},
      {IDC_SHOW_BOOKMARK_BAR, ui::EF_COMMAND_DOWN | ui::EF_SHIFT_DOWN,
       ui::VKEY_B},
      {IDC_SHOW_BOOKMARK_MANAGER, ui::EF_COMMAND_DOWN | ui::EF_ALT_DOWN,
@@ -160,7 +162,8 @@
      VK_F5,          IDC_RELOAD_BYPASSING_CACHE, VIRTKEY, SHIFT
      "T",            IDC_RESTORE_TAB,            VIRTKEY, CONTROL, SHIFT
 -    "S",            IDC_SAVE_PAGE,              VIRTKEY, CONTROL
-+    "S",            IDC_CTRL_S_SHORTCUT,        VIRTKEY, CONTROL
++    "S",            IDC_SAVE_PAGE,              VIRTKEY, CONTROL
++    "E",            IDC_CTRL_S_SHORTCUT,        VIRTKEY, CONTROL
      "9",            IDC_SELECT_LAST_TAB,        VIRTKEY, CONTROL
      VK_NUMPAD9,     IDC_SELECT_LAST_TAB,        VIRTKEY, CONTROL
      VK_NEXT,        IDC_MOVE_TAB_NEXT,          VIRTKEY, CONTROL, SHIFT
@@ -172,12 +175,12 @@
    </if>
 +  <if expr="is_macosx">
 +    <message name="IDS_SETTINGS_VERTICAL_COLLAPSE_SHORTCUT" desc="Toggle in settings that allows you to enable the keyboard shortcut that toggles vertical tabs in the Vertical layout. It's enabled by default.">
-+      Use ⌘+S to toggle vertical tabs in Vertical layout
++      Use ⌘+E to toggle vertical tabs in Vertical layout
 +    </message>
 +  </if>
 +  <if expr="not is_macosx">
 +    <message name="IDS_SETTINGS_VERTICAL_COLLAPSE_SHORTCUT" desc="Toggle in settings that allows you to enable the keyboard shortcut that toggles vertical tabs in the Vertical layout. It's enabled by default.">
-+      Use Ctrl+S to toggle vertical tabs in Vertical layout
++      Use Ctrl+E to toggle vertical tabs in Vertical layout
 +    </message>
 +  </if>
  
