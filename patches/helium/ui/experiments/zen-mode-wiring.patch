@@ -281,12 +281,12 @@
      VK_F6,          IDC_FOCUS_NEXT_PANE,        VIRTKEY
 --- a/chrome/browser/global_keyboard_shortcuts_mac.mm
 +++ b/chrome/browser/global_keyboard_shortcuts_mac.mm
-@@ -144,6 +144,7 @@ const std::vector<KeyboardShortcutData>&
+@@ -146,6 +146,7 @@ const std::vector<KeyboardShortcutData>&
        {true,  false, false, false, kVK_ANSI_Keypad9,      IDC_SELECT_LAST_TAB},
- 
-       {true,  false, false, false, kVK_ANSI_S,            IDC_CTRL_S_SHORTCUT},
+
+       {true,  false, false, false, kVK_ANSI_E,            IDC_CTRL_S_SHORTCUT},
 +      {true,  true,  false, false, kVK_ANSI_L,            IDC_TOGGLE_ZEN_MODE_TOP_CHROME_PIN},
- 
+
        {true,  true,  false, false, kVK_ANSI_M,            IDC_SHOW_AVATAR_MENU},
        {true,  false, false, true,  kVK_ANSI_L,            IDC_SHOW_DOWNLOADS},
 --- a/chrome/browser/ui/accelerator_table.cc
@@ -313,10 +313,10 @@
    // Safety Hub commands.
 --- a/chrome/browser/ui/cocoa/accelerators_cocoa.mm
 +++ b/chrome/browser/ui/cocoa/accelerators_cocoa.mm
-@@ -49,6 +49,8 @@ const struct AcceleratorMapping {
-     {IDC_PRINT, ui::EF_COMMAND_DOWN, ui::VKEY_P},
+@@ -50,6 +50,8 @@ const struct AcceleratorMapping {
      {IDC_RESTORE_TAB, ui::EF_COMMAND_DOWN | ui::EF_SHIFT_DOWN, ui::VKEY_T},
-     {IDC_CTRL_S_SHORTCUT, ui::EF_COMMAND_DOWN, ui::VKEY_S},
+     {IDC_SAVE_PAGE, ui::EF_COMMAND_DOWN, ui::VKEY_S},
+     {IDC_CTRL_S_SHORTCUT, ui::EF_COMMAND_DOWN, ui::VKEY_E},
 +    {IDC_TOGGLE_ZEN_MODE_TOP_CHROME_PIN,
 +     ui::EF_COMMAND_DOWN | ui::EF_SHIFT_DOWN, ui::VKEY_L},
      {IDC_SHOW_BOOKMARK_BAR, ui::EF_COMMAND_DOWN | ui::EF_SHIFT_DOWN,
