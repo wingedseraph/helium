@@ -283,10 +283,10 @@
 +++ b/chrome/browser/global_keyboard_shortcuts_mac.mm
 @@ -144,6 +144,7 @@ const std::vector<KeyboardShortcutData>&
        {true,  false, false, false, kVK_ANSI_Keypad9,      IDC_SELECT_LAST_TAB},
-
+ 
        {true,  false, false, false, kVK_ANSI_E,            IDC_CTRL_S_SHORTCUT},
 +      {true,  true,  false, false, kVK_ANSI_L,            IDC_TOGGLE_ZEN_MODE_TOP_CHROME_PIN},
-
+ 
        {true,  true,  false, false, kVK_ANSI_M,            IDC_SHOW_AVATAR_MENU},
        {true,  false, false, true,  kVK_ANSI_L,            IDC_SHOW_DOWNLOADS},
 --- a/chrome/browser/ui/accelerator_table.cc
