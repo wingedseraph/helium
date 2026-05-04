@@ -1,0 +1,705 @@
+commit 7634d3ca22b31642cb1e3b3e2387e1d3f3589445
+Author: wingedseraph <r89647@gmail.com>
+Date:   Sat May 2 18:40:30 2026 +0300
+
+    fix: adjust reorder-settings-menu.patch hunk offsets for restored autofill menu
+
+diff --git a/patches/helium/settings/reorder-settings-menu.patch b/patches/helium/settings/reorder-settings-menu.patch
+index 2ac60267..77ba1233 100644
+--- a/patches/helium/settings/reorder-settings-menu.patch
++++ b/patches/helium/settings/reorder-settings-menu.patch
+@@ -11,7 +11,7 @@
+    let guestTopLevelRoute = routes.SEARCH;
+ --- a/chrome/browser/resources/settings/settings_menu/settings_menu.html
+ +++ b/chrome/browser/resources/settings/settings_menu/settings_menu.html
+-@@ -57,6 +57,13 @@
++@@ -67,6 +67,13 @@
+            $i18n{peoplePageTitle}
+            <cr-ripple></cr-ripple>
+          </a>
+@@ -25,7 +25,7 @@
+          <a role="menuitem" href="/privacy"
+              hidden="[[!pageVisibility_.privacy]]"
+              class="cr-nav-menu-item">
+-@@ -71,21 +78,6 @@
++@@ -81,21 +88,6 @@
+            $i18n{performancePageTitle}
+            <cr-ripple></cr-ripple>
+          </a>
+
+commit 00cd1c9aae02507cdba4189898bcca709f8652fc
+Author: wingedseraph <r89647@gmail.com>
+Date:   Sat May 2 17:41:00 2026 +0300
+
+    fix: remove autofill-download-manager patch, fix zen-mode-wiring hunk offset
+
+diff --git a/patches/helium/ui/experiments/zen-mode-wiring.patch b/patches/helium/ui/experiments/zen-mode-wiring.patch
+index b49d2ece..25b0a2b5 100644
+--- a/patches/helium/ui/experiments/zen-mode-wiring.patch
++++ b/patches/helium/ui/experiments/zen-mode-wiring.patch
+@@ -281,7 +281,7 @@
+      VK_F6,          IDC_FOCUS_NEXT_PANE,        VIRTKEY
+ --- a/chrome/browser/global_keyboard_shortcuts_mac.mm
+ +++ b/chrome/browser/global_keyboard_shortcuts_mac.mm
+-@@ -146,6 +146,7 @@ const std::vector<KeyboardShortcutData>&
++@@ -144,6 +144,7 @@ const std::vector<KeyboardShortcutData>&
+        {true,  false, false, false, kVK_ANSI_Keypad9,      IDC_SELECT_LAST_TAB},
+ 
+        {true,  false, false, false, kVK_ANSI_E,            IDC_CTRL_S_SHORTCUT},
+
+commit a12c4bfae481381f3d61825ed11783123face3c4
+Author: wingedseraph <r89647@gmail.com>
+Date:   Sat May 2 16:44:44 2026 +0300
+
+    fix: remove disable-autofill-download-manager patch to fix password manager crash
+
+diff --git a/patches/series b/patches/series
+index aa294eed..bf07513f 100644
+--- a/patches/series
++++ b/patches/series
+@@ -1,7 +1,7 @@
+ upstream-fixes/missing-dependencies.patch
+ 
+ inox-patchset/fix-building-without-safebrowsing.patch
+-inox-patchset/disable-autofill-download-manager.patch
++
+ inox-patchset/disable-update-pings.patch
+ inox-patchset/disable-rlz.patch
+ 
+
+commit 227ddfed2e311c6f1a4f24f5b7a4fb88bedee66b
+Author: wingedseraph <r89647@gmail.com>
+Date:   Wed Apr 29 02:32:43 2026 +0300
+
+    feat: enable password manager by default
+    
+    Remove password_manager.cc hunk from modify-default-prefs.patch
+    
+    to keep kCredentialsEnableService and kCredentialsEnableAutosignin
+    
+    at their Chromium defaults (true).
+
+diff --git a/patches/inox-patchset/modify-default-prefs.patch b/patches/inox-patchset/modify-default-prefs.patch
+index 239c6312..ea21af9f 100644
+--- a/patches/inox-patchset/modify-default-prefs.patch
++++ b/patches/inox-patchset/modify-default-prefs.patch
+@@ -106,21 +106,6 @@
+        user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
+  }
+  
+---- a/components/password_manager/core/browser/password_manager.cc
+-+++ b/components/password_manager/core/browser/password_manager.cc
+-@@ -547,10 +547,10 @@ PasswordForm CreateFormForLeakCheck(cons
+- void PasswordManager::RegisterProfilePrefs(
+-     user_prefs::PrefRegistrySyncable* registry) {
+-   registry->RegisterBooleanPref(
+--      prefs::kCredentialsEnableService, true,
+-+      prefs::kCredentialsEnableService, false,
+-       user_prefs::PrefRegistrySyncable::SYNCABLE_PRIORITY_PREF);
+-   registry->RegisterBooleanPref(
+--      prefs::kCredentialsEnableAutosignin, true,
+-+      prefs::kCredentialsEnableAutosignin, false,
+-       user_prefs::PrefRegistrySyncable::SYNCABLE_PRIORITY_PREF);
+-   registry->RegisterBooleanPref(
+-       prefs::kWasAutoSignInFirstRunExperienceShown, false,
+ --- a/components/payments/core/payment_prefs.cc
+ +++ b/components/payments/core/payment_prefs.cc
+ @@ -11,7 +11,7 @@ namespace payments {
+
+commit 5a0eeb771312bb596b3e4b0c3f239b29cfe97038
+Author: wingedseraph <r89647@gmail.com>
+Date:   Mon Apr 27 18:25:42 2026 +0300
+
+    feat: re-enable password manager and autofill settings UI
+    
+    Remove two patches that disabled password management:
+    
+    - helium/settings/remove-autofill.patch
+    
+    - helium/ui/remove-autofill-link-to-password-manager.patch
+
+diff --git a/patches/series b/patches/series
+index 07fb56ac..aa294eed 100644
+--- a/patches/series
++++ b/patches/series
+@@ -191,7 +191,6 @@ helium/core/custom-profile-avatar.patch
+ 
+ helium/settings/settings-page-icons.patch
+ helium/settings/move-search-suggest.patch
+-helium/settings/remove-autofill.patch
+ helium/settings/remove-profile-page-sections.patch
+ helium/settings/fix-page-names.patch
+ helium/settings/disable-safety-hub-page.patch
+@@ -272,7 +271,6 @@ helium/ui/helium-color-scheme.patch
+ helium/ui/improve-flags-webui.patch
+ helium/ui/ublock-show-in-settings.patch
+ helium/ui/licenses-in-credits.patch
+-helium/ui/remove-autofill-link-to-password-manager.patch
+ helium/ui/fix-caption-button-bounds.patch
+ helium/ui/find-bar.patch
+ helium/ui/remove-zoom-action.patch
+
+commit bbb1e5c12f527cf9550849c8e3f2e3d1e1edc48b
+Author: nikolai t <143389903+wingedseraph@users.noreply.github.com>
+Date:   Sun Apr 26 02:32:09 2026 +0300
+
+    Remove disable-password-manager.patch from series
+
+diff --git a/patches/series b/patches/series
+index 172fa4fe..07fb56ac 100644
+--- a/patches/series
++++ b/patches/series
+@@ -211,7 +211,7 @@ helium/settings/add-search-engine-button.patch
+ helium/settings/custom-profile-avatar-ui.patch
+ 
+ helium/hop/setup.patch
+-helium/hop/disable-password-manager.patch
++
+ 
+ helium/ui/layout-constants.patch
+ helium/ui/layout-provider.patch
+
+commit b2050c2c8b16c8b6b44569bbf5aeb4a9bf8fc556
+Author: wukko <me@wukko.me>
+Date:   Sat Oct 18 01:50:01 2025 +0600
+
+    helium/ui: remove link to password manager from passkey autofill popover
+
+diff --git a/patches/helium/ui/remove-autofill-link-to-password-manager.patch b/patches/helium/ui/remove-autofill-link-to-password-manager.patch
+new file mode 100644
+index 00000000..252784da
+--- /dev/null
++++ b/patches/helium/ui/remove-autofill-link-to-password-manager.patch
+@@ -0,0 +1,11 @@
++--- a/components/password_manager/core/browser/password_suggestion_generator.cc
+++++ b/components/password_manager/core/browser/password_suggestion_generator.cc
++@@ -96,6 +96,8 @@ Suggestion::PasswordSuggestionDetails Ge
++ }
++ 
++ void MaybeAppendManagePasswordsEntry(std::vector<Suggestion>* suggestions) {
+++  return;
+++
++   bool has_no_fillable_suggestions = std::ranges::none_of(
++       *suggestions,
++       [](SuggestionType id) {
+diff --git a/patches/series b/patches/series
+index ea99bb61..bb33650a 100644
+--- a/patches/series
++++ b/patches/series
+@@ -250,3 +250,4 @@ helium/ui/helium-color-scheme.patch
+ helium/ui/improve-flags-webui.patch
+ helium/ui/ublock-show-in-settings.patch
+ helium/ui/licenses-in-credits.patch
++helium/ui/remove-autofill-link-to-password-manager.patch
+
+commit fde4fe86b6bcb455130b83c28b4843833fbf4364
+Author: wukko <me@wukko.me>
+Date:   Sun May 11 22:43:16 2025 +0600
+
+    helium/ui: remove the autofill link from updated profiles menu
+
+diff --git a/patches/helium/ui/remove-dead-profile-actions.patch b/patches/helium/ui/remove-dead-profile-actions.patch
+index 76d5fa43..243c8819 100644
+--- a/patches/helium/ui/remove-dead-profile-actions.patch
++++ b/patches/helium/ui/remove-dead-profile-actions.patch
+@@ -1,4 +1,3 @@
+---- a/chrome/browser/ui/views/profiles/profile_menu_view.cc
+ +++ b/chrome/browser/ui/views/profiles/profile_menu_view.cc
+ @@ -186,7 +186,7 @@ void ProfileMenuView::BuildMenu() {
+      BuildIdentity();
+@@ -9,6 +8,14 @@
+        BuildSyncInfo();
+        BuildAutofillButtons();
+      }
++@@ -901,6 +901,7 @@ void ProfileMenuView::BuildIdentityWithC
++ }
++ 
++ void ProfileMenuView::BuildAutofillSettingsButton() {
+++  return;
++   CHECK(!browser()->profile()->IsGuestSession());
++   AddFeatureButton(
++       l10n_util::GetStringUTF16(IDS_PROFILE_MENU_AUTOFILL_SETTINGS_BUTTON),
+ --- a/chrome/browser/ui/views/profiles/profile_menu_view_base.cc
+ +++ b/chrome/browser/ui/views/profiles/profile_menu_view_base.cc
+ @@ -690,8 +690,6 @@ void ProfileMenuViewBase::SetProfileIden
+
+commit e70093c508a5d1c5196349a5661c1d3898e159da
+Author: jj <log@riseup.net>
+Date:   Sat May 3 20:11:13 2025 +0000
+
+    patches/custom-importer: disable saved password importing
+
+diff --git a/patches/extra/brave/custom-importer.patch b/patches/extra/brave/custom-importer.patch
+index 433d99e7..ee44426d 100644
+--- a/patches/extra/brave/custom-importer.patch
++++ b/patches/extra/brave/custom-importer.patch
+@@ -66,6 +66,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  #endif
+    if (include_interactive_profiles) {
+      importer::SourceProfile bookmarks_profile;
++@@ -227,5 +239,11 @@ void ImporterList::SourceProfilesLoaded(
++   DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
++ 
++   source_profiles_.assign(profiles.begin(), profiles.end());
+++
+++  for (auto& profile : source_profiles_) {
+++    if (profile.services_supported & importer::PASSWORDS)
+++      profile.services_supported ^= importer::PASSWORDS;
+++  }
+++
++   std::move(profiles_loaded_callback).Run();
++ }
+ --- a/chrome/common/importer/BUILD.gn
+ +++ b/chrome/common/importer/BUILD.gn
+ @@ -3,11 +3,15 @@
+
+commit 8c91eae4aad5b63d0953dd73414bf695e79404f2
+Author: wukko <me@wukko.me>
+Date:   Wed Mar 12 00:11:07 2025 +0600
+
+    helium/settings/remove-autofill: fix duplicated removal
+    
+    oops
+
+diff --git a/patches/helium/settings/remove-autofill.patch b/patches/helium/settings/remove-autofill.patch
+index bf57bd60..d15ebe7c 100644
+--- a/patches/helium/settings/remove-autofill.patch
++++ b/patches/helium/settings/remove-autofill.patch
+@@ -27,21 +27,7 @@
+                section="autofill">
+ --- a/chrome/browser/resources/settings/route.ts
+ +++ b/chrome/browser/resources/settings/route.ts
+-@@ -190,13 +190,6 @@ function createRoutes(): SettingsRoutes
+-     r.IMPORT_DATA = r.PEOPLE.createChild('/importData');
+-     r.IMPORT_DATA.isNavigableDialog = true;
+-     // </if>
+--
+--    r.SYNC = r.PEOPLE.createChild('/syncSetup');
+--    r.SYNC_ADVANCED = r.SYNC.createChild('/syncSetup/advanced');
+--    if (!loadTimeData.getBoolean('enableAiSettingsPageRefresh') &&
+--        loadTimeData.getBoolean('showHistorySearchControl')) {
+--      r.HISTORY_SEARCH = r.SYNC.createChild('/historySearch');
+--    }
+-   }
+- 
+-   const visibility = pageVisibility || {};
+-@@ -235,29 +228,6 @@ function createRoutes(): SettingsRoutes
++@@ -228,29 +228,6 @@ function createRoutes(): SettingsRoutes
+      r.FONTS = r.APPEARANCE.createChild('/fonts');
+    }
+  
+
+commit 8591fa20d5b28abb0998c9cb4bd6e1667f4e6781
+Author: wukko <me@wukko.me>
+Date:   Tue Mar 11 23:09:41 2025 +0600
+
+    helium/settings: remove autofill navigation & pages
+
+diff --git a/patches/helium/settings/remove-autofill.patch b/patches/helium/settings/remove-autofill.patch
+new file mode 100644
+index 00000000..bf57bd60
+--- /dev/null
++++ b/patches/helium/settings/remove-autofill.patch
+@@ -0,0 +1,73 @@
++--- a/chrome/browser/resources/settings/settings_menu/settings_menu.html
+++++ b/chrome/browser/resources/settings/settings_menu/settings_menu.html
++@@ -57,13 +57,6 @@
++           $i18n{peoplePageTitle}
++           <cr-ripple></cr-ripple>
++         </a>
++-        <a role="menuitem" id="autofill" href="/autofill"
++-            hidden="[[!pageVisibility.autofill]]"
++-            class="cr-nav-menu-item">
++-          <cr-icon icon="settings:assignment"></cr-icon>
++-          $i18n{autofillPageTitle}
++-          <cr-ripple></cr-ripple>
++-        </a>
++         <a role="menuitem" href="/privacy"
++             hidden="[[!pageVisibility.privacy]]"
++             class="cr-nav-menu-item">
++--- a/chrome/browser/resources/settings/basic_page/basic_page.html
+++++ b/chrome/browser/resources/settings/basic_page/basic_page.html
++@@ -53,7 +53,7 @@
++             <settings-ai-page prefs="{{prefs}}"></settings-ai-page>
++           </settings-section>
++         </template>
++-        <template is="dom-if" if="[[showPage_(pageVisibility.autofill)]]"
+++        <template is="dom-if" if="[[false]]"
++             restamp>
++           <settings-section page-title="$i18n{autofillPageTitle}"
++               section="autofill">
++--- a/chrome/browser/resources/settings/route.ts
+++++ b/chrome/browser/resources/settings/route.ts
++@@ -190,13 +190,6 @@ function createRoutes(): SettingsRoutes
++     r.IMPORT_DATA = r.PEOPLE.createChild('/importData');
++     r.IMPORT_DATA.isNavigableDialog = true;
++     // </if>
++-
++-    r.SYNC = r.PEOPLE.createChild('/syncSetup');
++-    r.SYNC_ADVANCED = r.SYNC.createChild('/syncSetup/advanced');
++-    if (!loadTimeData.getBoolean('enableAiSettingsPageRefresh') &&
++-        loadTimeData.getBoolean('showHistorySearchControl')) {
++-      r.HISTORY_SEARCH = r.SYNC.createChild('/historySearch');
++-    }
++   }
++ 
++   const visibility = pageVisibility || {};
++@@ -235,29 +228,6 @@ function createRoutes(): SettingsRoutes
++     r.FONTS = r.APPEARANCE.createChild('/fonts');
++   }
++ 
++-  if (visibility.autofill !== false) {
++-    r.AUTOFILL = r.BASIC.createSection(
++-        '/autofill', 'autofill', loadTimeData.getString('autofillPageTitle'));
++-    r.PAYMENTS = r.AUTOFILL.createChild('/payments');
++-    r.ADDRESSES = r.AUTOFILL.createChild('/addresses');
++-
++-    if (loadTimeData.getBoolean('autofillAiEnabled')) {
++-      r.AUTOFILL_AI = r.AUTOFILL.createChild('/autofillAi');
++-    }
++-
++-    // <if expr="enable_glic">
++-    if (visibility.glic !== false &&
++-        loadTimeData.getBoolean('showGlicSettings')) {
++-      r.GLIC = r.BASIC.createSection(
++-          '/glic', 'glic', loadTimeData.getString('glicPageTitle'));
++-    }
++-    // </if>
++-
++-    // <if expr="is_win or is_macosx">
++-    r.PASSKEYS = r.AUTOFILL.createChild('/passkeys');
++-    // </if>
++-  }
++-
++   if (visibility.privacy !== false) {
++     r.PRIVACY = r.BASIC.createSection(
++         '/privacy', 'privacy', loadTimeData.getString('privacyPageTitle'));
+diff --git a/patches/series b/patches/series
+index 22c1097a..a1424684 100644
+--- a/patches/series
++++ b/patches/series
+@@ -128,6 +128,7 @@ helium/disable-bookmarks-bar.patch
+ 
+ helium/settings/move-search-suggest.patch
+ helium/settings/move-macos-settings.patch
++helium/settings/remove-autofill.patch
+ 
+ helium/hop/setup.patch
+ helium/hop/disable-password-manager.patch
+
+commit 0c2de6b0b0c5631d669ad14542f7f73fc86ba161
+Author: jj <log@riseup.net>
+Date:   Sun Mar 9 16:11:08 2025 +0000
+
+    patches/hop: disable password manager
+
+diff --git a/patches/helium/hop/disable-password-manager.patch b/patches/helium/hop/disable-password-manager.patch
+new file mode 100644
+index 00000000..68d56ad7
+--- /dev/null
++++ b/patches/helium/hop/disable-password-manager.patch
+@@ -0,0 +1,12 @@
++--- a/components/policy/core/common/helium_opinionated_policy_provider.cc
+++++ b/components/policy/core/common/helium_opinionated_policy_provider.cc
++@@ -22,6 +22,9 @@ void HopProvider::RefreshPolicies(Policy
++   PolicyBundle bundle;
++   PolicyMap& policy_map = bundle.Get(PolicyNamespace(POLICY_DOMAIN_CHROME, std::string()));
++ 
+++  Set(policy_map, policy::key::kPasswordManagerEnabled, POLICY_LEVEL_MANDATORY, base::Value(false));
+++  Set(policy_map, policy::key::kPasswordManagerPasskeysEnabled, POLICY_LEVEL_MANDATORY, base::Value(false));
+++
++   UpdatePolicy(std::move(bundle));
++ }
++ 
+diff --git a/patches/series b/patches/series
+index 7df01a8f..1247766d 100644
+--- a/patches/series
++++ b/patches/series
+@@ -129,6 +129,7 @@ helium/settings/move-search-suggest.patch
+ helium/settings/move-macos-settings.patch
+ 
+ helium/hop/setup.patch
++helium/hop/disable-password-manager.patch
+ 
+ helium-ui/always-use-better-ntp.patch
+ helium-ui/clean-new-tab-page.patch
+
+commit 0687303a5079e5ceadae8d841abdd5d98d2726fe
+Author: Blaise <BlaiseD@GMail.com>
+Date:   Fri Aug 13 10:34:10 2021 -0500
+
+    Update remove-uneeded-ui.patch
+    
+    Removes the 'Learn more' link on new incognito tabs.
+    Removes the live captions entry in the settings.
+    Removes the external link for theme entry on settings page.
+    Removes the password check and managed password entries from the password page.
+    Removes the (?) learn more buttons from settings pages.
+    Removes the 'Larn more' link from the search engines entry on the settings page.
+    Updated the safetycheck removals to disable their templates.
+
+diff --git a/patches/extra/ungoogled-chromium/remove-uneeded-ui.patch b/patches/extra/ungoogled-chromium/remove-uneeded-ui.patch
+index 0940bb12..615d1165 100644
+--- a/patches/extra/ungoogled-chromium/remove-uneeded-ui.patch
++++ b/patches/extra/ungoogled-chromium/remove-uneeded-ui.patch
+@@ -1,14 +1,17 @@
+ # Removes in order:
+ # 'Tabs from other devices' entry on the History page sidebar
++# the 'Learn more' link on new incognito tabs
++# Live captions entry from the settings page
+ # link to Google's accessibility site from the settings page
+ # link to Google's help site on the About page
++# external link for theme entry on settings page
++# Check passwords and managed passwords sections from the passwords page
+ # Safety check section on the settings page
+-# option to offer page translations on the settings page
+-# cloud printing entry on the settings page
+-# option for password leak detection on the settings page
+ # Google sign-in and Anonymized Data Collection sections
+ # Advanced Protection Program link on the security settings page
++# the 'Learn more' link from the search engine entry on the settings page
+ # Safety Check entry on the side menu on the settings page
++# the (?) learn more button on many settings pages
+ # unneeded elements from the profile menu
+ 
+ --- a/chrome/browser/resources/history/side_bar.html
+@@ -25,8 +28,28 @@
+          <div class="separator"></div>
+          <a role="menuitem" id="clear-browsing-data"
+              href="chrome://settings/clearBrowserData"
++--- a/chrome/browser/resources/ntp4/incognito_tab.html
+++++ b/chrome/browser/resources/ntp4/incognito_tab.html
++@@ -25,8 +25,6 @@ document.querySelector('#incognitothemec
++   <h1>$i18n{incognitoTabHeading}</h1>
++   <p id="subtitle">
++     <span>$i18n{incognitoTabDescription}</span>
++-    <a class="learn-more-button"
++-        href="$i18n{learnMoreLink}">$i18n{learnMore}</a>
++   </p>
++   <div id="bulletpoints-wrapper">
++     <div class="bulletpoints first">$i18nRaw{incognitoTabFeatures}</div>
+ --- a/chrome/browser/resources/settings/a11y_page/a11y_page.html
+ +++ b/chrome/browser/resources/settings/a11y_page/a11y_page.html
++@@ -21,7 +21,7 @@
++               external$="[[captionSettingsOpensExternally_]]">
++           </cr-link-row>
++         </template>
++-        <template is="dom-if" if="[[!captionSettingsOpensExternally_]]">
+++        <template is="dom-if" if="[[false]]">
++           <cr-link-row id="captions"
++               label="$i18n{captionsTitle}"
++               on-click="onCaptionsClick_"
+ @@ -51,10 +51,6 @@
+              sub-label="$i18n{accessibleImageLabelsSubtitle}">
+          </settings-toggle-button>
+@@ -49,24 +72,53 @@
+  <if expr="_google_chrome">
+        <cr-link-row class="hr" id="reportIssue" on-click="onReportIssueTap_"
+            hidden="[[!prefs.feedback_allowed.value]]"
++--- a/chrome/browser/resources/settings/appearance_page/appearance_page.html
+++++ b/chrome/browser/resources/settings/appearance_page/appearance_page.html
++@@ -22,11 +22,11 @@
++     <settings-animated-pages id="pages" section="appearance"
++         focus-config="[[focusConfig_]]">
++       <div route-path="default">
++-        <div class="settings-row first" id="themeRow"
+++        <div class="cr-row first" id="themeRow"
++             hidden="[[!pageVisibility.setTheme]]">
++-          <cr-link-row class="first" hidden="[[!pageVisibility.setTheme]]"
++-              label="$i18n{themes}" sub-label="[[themeSublabel_]]"
++-              on-click="openThemeUrl_" external></cr-link-row>
+++          <div class="flex cr-padded-text">
+++            <div>$i18n{themes}</div><div class="secondary">[[themeSublabel_]]</div>
+++          </div>
++ <if expr="not is_linux or chromeos or lacros">
++           <template is="dom-if" if="[[prefs.extensions.theme.id.value]]">
++             <div class="separator"></div>
++--- a/chrome/browser/resources/settings/autofill_page/passwords_section.html
+++++ b/chrome/browser/resources/settings/autofill_page/passwords_section.html
++@@ -106,6 +106,7 @@
++         label="$i18n{trustedVaultOptInLabel}"
++         sub-label="$i18n{trustedVaultOptInSubLabel}">
++     </cr-link-row>
+++<if expr="false">
++     <div id="checkPasswordsBannerContainer" class="cr-row"
++         hidden$="[[!shouldShowBanner_]]">
++       <picture>
++@@ -154,6 +155,7 @@
++       <!-- This div lays out the link correctly, relative to the text. -->
++       <div class="cr-padded-text">$i18nRaw{managePasswordsLabel}</div>
++     </div>
+++</if>
++     <div class="cr-row first">
++       <h2 id="savedPasswordsHeading" class="flex">
++         $i18n{savedPasswordsHeading}
+ --- a/chrome/browser/resources/settings/basic_page/basic_page.html
+ +++ b/chrome/browser/resources/settings/basic_page/basic_page.html
+-@@ -95,6 +95,7 @@
++@@ -95,7 +95,7 @@
+              <settings-autofill-page prefs="{{prefs}}"></settings-autofill-page>
+            </settings-section>
+          </template>
+-+<if expr="false">
+-         <template is="dom-if" if="[[showPage_(pageVisibility.safetyCheck)]]"
++-        <template is="dom-if" if="[[showPage_(pageVisibility.safetyCheck)]]"
+++        <template is="dom-if" if="[[false]]"
+              restamp>
+            <settings-section page-title="$i18n{safetyCheckSectionTitle}"
+-@@ -104,6 +105,7 @@
+-             </settings-safety-check-page>
+-           </settings-section>
+-         </template>
+-+</if>
+-         <template is="dom-if" if="[[showPage_(pageVisibility.privacy)]]"
+-             restamp>
+-           <settings-section page-title="$i18n{privacyPageTitle}"
++               section="safetyCheck" nest-under-section="privacy"
+ --- a/chrome/browser/resources/settings/privacy_page/personalization_options.html
+ +++ b/chrome/browser/resources/settings/privacy_page/personalization_options.html
+ @@ -8,7 +8,7 @@
+@@ -104,23 +156,41 @@
+ -        on-click="onAdvancedProtectionProgramLinkClick_"
+ -        external>
+ -    </cr-link-row>
++--- a/chrome/browser/resources/settings/search_page/search_page.html
+++++ b/chrome/browser/resources/settings/search_page/search_page.html
++@@ -12,10 +12,6 @@
++     <div class="cr-row first">
++       <div id="searchExplanation" class="flex cr-padded-text">
++         $i18n{searchExplanation}
++-        <a href="$i18n{searchExplanationLearnMoreURL}"
++-            target="_blank">
++-          $i18n{learnMore}
++-        </a>
++       </div>
++       <template is="dom-if" if="[[isDefaultSearchControlledByPolicy_(
++           prefs.default_search_provider_data.template_url_data)]]">
+ --- a/chrome/browser/resources/settings/settings_menu/settings_menu.html
+ +++ b/chrome/browser/resources/settings/settings_menu/settings_menu.html
+-@@ -111,14 +111,6 @@
++@@ -111,7 +111,7 @@
+              <iron-icon icon="settings:assignment"></iron-icon>
+              $i18n{autofillPageTitle}
+            </a>
+ -          <template is="dom-if" if="[[!enableLandingPageRedesign_]]">
+--            <a role="menuitem" href="/safetyCheck"
+--                hidden="[[!pageVisibility.safetyCheck]]"
+--                id="safetyCheck">
+--              <iron-icon icon="settings20:safety-check"></iron-icon>
+--              $i18n{safetyCheckSectionTitle}
+--            </a>
+--          </template>
+-           <a role="menuitem" href="/privacy"
+-               hidden="[[!pageVisibility.privacy]]">
+-             <iron-icon icon="cr:security"></iron-icon>
+++          <template is="dom-if" if="[[false]]">
++             <a role="menuitem" href="/safetyCheck"
++                 hidden="[[!pageVisibility.safetyCheck]]"
++                 id="safetyCheck">
++--- a/chrome/browser/resources/settings/settings_page/settings_subpage.html
+++++ b/chrome/browser/resources/settings/settings_page/settings_subpage.html
++@@ -68,7 +68,7 @@
++       </template>
++       <h1 class="cr-title-text">[[pageTitle]]</h1>
++       <slot name="subpage-title-extra"></slot>
++-      <template is="dom-if" if="[[learnMoreUrl]]">
+++      <template is="dom-if" if="[[false]]">
++         <cr-icon-button iron-icon="cr:help-outline" dir="ltr"
++             aria-label="$i18n{learnMore}" on-click="onHelpClick_">
++         </cr-icon-button>
+ --- a/chrome/browser/ui/views/profiles/profile_menu_view.cc
+ +++ b/chrome/browser/ui/views/profiles/profile_menu_view.cc
+ @@ -220,6 +220,7 @@ void ProfileMenuView::BuildMenu() {
+1da4771e helium/hop/pwm: refactor
+0c2de6b0 patches/hop: disable password manager
+e67c0db5 patches: move everything from contrib to root dir (#557)
+fa41ca5f patches: merge extra & core into contrib, clean up files (#527)
+6128ec65 Update to Chromium 140.0.7339.80
+a078b9be Update to Chromium 139.0.7258.66
+dad7e19d Update to Chromium 138.0.7204.49
+76f98dc4 Update to Chromium 137.0.7151.55
+176fe36f Update to Chromium 136.0.7103.49
+c46cb887 Update to Chromium 135.0.7049.41
+2d603520 Update to Chromium 134.0.6998.35
+e9d13426 Update to Chromium 133.0.6943.53
+962eb128 Update to Chromium 130.0.6723.58
+77ed0175 Update to Chromium 129.0.6668.58
+37452608 Update to Chromium 127.0.6533.72
+c5aa0f6a Update to Chromium 123.0.6312.58
+eb9cb496 Update to Chromium 122.0.6261.57
+223fe76b Update to Chromium 121.0.6167.85
+0d41e31b Update to Chromium 120.0.6099.62
+d1f177cd Update to Chromium 118.0.5993.70
+c97db8a1 Update to Chromium 117.0.5938.62
+dd519553 Update to Chromium 114.0.5735.90
+b188ff00 Update to Chromium 112.0.5615.49
+ce036275 Update to Chromium 111.0.5563.64
+46c4319c Update to Chromium 106.0.5249.61
+7ee3b040 Update to Chromium 105.0.5195.52
+fcbad160 Update to Chromium 103.0.5060.53
+970f6b1e Update to Chromium 102.0.5005.61 (#1964)
+92643502 Update to Chromium 100.0.4896.60 (#1876)
+2efea72a Update to Chromium 99.0.4844.45
+6c5eb7d4 Update to Chromium 96.0.4664.45 (#1732)
+a40aba57 Update to Chromium 94.0.4606.54
+bb17f21c Update to Chromium 93.0.4577.63
+4ee8b57c Update to Chromium 92.0.4515.107
+1e52b907 Update to Chromium 91.0.4472.77
+89ca20f4 Update to Chromium 90.0.4430.72
+fc06b0d7 Upgrade to Chromium 87.0.4280.66
+7ba01e6c Upgrade to Chromium 85.0.4183.83
+70032a22 Upgrade to Chromium 84.0.4147.89
+3f783ccc Update to Chromium 80.0.3987.42
+ec18ba37 Update to Chromium 79.0.3945.79 (#883)
+5931f253 Update to Chromium 78.0.3904.44
+28e278e0 patches/core: Update for 77.0.3865.75
+06d94a9d Update to Chromium 76.0.3809.87
+e267680f Update Chromium to 74.0.3729.75
+c6b4d9bf Update Chromium to 73.0.3683.86
+c9b4fb6c Separate patches into core/ and extra/
+34624717 patches/inox: Update to 71.0.3578.80
+ecb7b49e patches/inox: Update for 70
+7ce12ba0 patches/inox: Update for 69
+05847d72 Rearrange files and folders
+ae31030f Update common and linux_rooted patches to 66.0.3359.66
+86fc0e84 Add instructions for OpenSUSE and fix the OpenSUSE build
+c7e2962f update to version 65.0.3325.162
+3d841344 Remove use of block comments in potentially unsafe places
+29b62ae1 update patches for 65.0.3325.146
+6a2eaff9 Refresh Inox patches with 60.0.3112.101
+c83b4b9a Update Inox patches to xsmile's 60.0.3112.101
+bab4d173 Update Inox patches to version 57
+d76e43c9 Blind update of remaining patches to Chromium 56
+582d86cb Import Inox patches 56.0.2924.87
+c3c9fc5b New resources directory layout Now contains directories configs, patches, and packaging for increased sharing flexibility
+2e8c8260 WIP update of patches to be applicable on version 55
+df72308c Update Inox and Iridium patches to Chrome 53 Update README.md
+926e892e Reorganize resources into new directories Rename building module to buildlib Refactor buildlib for easier and cleaner platform extensions Update developer utilities to work with buildlib
+87556e57 Update existing patches to Chromium 51 Add cleaning_list for Chromium 51 Add Python 2 script to delete files indicated by cleaning_list Add option for using cleaning list in build_debian.sh Add ggpht.com domain to domain patch generator
+88ae7ea2 Update Debian build scripts and patches to 51.0.2704.79-1 Revert domain names in patches Remove removed Iridium patches from patch_order
+3f1d10bb Update source_cleaner.sh to remove unnecessary code Update Iridium and Inox patches to work with new source tree Add jinja file extension to domain_patcher.sh
+1429f6e1 WIP for 48.0.2564.82 Refreshed Iridium, Inox, and custom patches Updated Debian scripts and patches to 48.0.2564.82-1 Removed Iridium patch prefs-enable-Send-a-Do-Not-Track-header.patch Updated README.md
+9c6cfa3b Updated ungoogled-chromium patches and added them to patch_order Tweaked Iridium and Inox patches to make them apply correctly Removed unecessary patches Debian patches Tweaked domain_patcher.sh to only operate on files and also parse .mm files Tweaked create_patch.sh to make it work without a GUI
+cf381b75 Created source cleaning script Separated domain patching script Update generate_debian.sh script Patched Iridium and Inox patches with replacement domain names Removed icons-change-sad-plugin-icon.patch because it requires Git to apply Updated README.md with new compilation instructions
+f3458f5f Blind import of Debian patches version 47.0.2526.73 Blind import of Inox patchset as of commit 3280f7c2026faeab47f9ad3ced6485005e914012
+27f62c91 Partial work for Chromium 47 File reorganization Change license to GPLv3 Blindly added all latest patches from Iridium Browser as of a9b882b2af95cfd925c74270af697977a393a4b9 (patchview branch) Blindly added all latest patches from Inox patchset as of 45554189cf010da92b9e8ff8289e60caa889c587 Updated README.md
+de9d0e0e patches: refresh for chromium 147.0.7727.55
+032fefbb patches: update for chromium 146.0.7680.65
+0776559a patches: refresh for chromium 145.0.7632.45
+cb4f6ca1 patches: update and refresh for chromium 144.0.7559.59
+2ce45ab9 patches: refresh and update for chromium 143.0.7499.40
+c12e7462 patches: refresh & update for chromium 142
+d2a74549 patches: refresh for chromium 141.0.7390.54
+075a2ad9 patches: refresh for 140.0.7339.80
+9617147a patches: refresh for 139.0.7258.66
+8900b76f patches: refresh for 138.0.7204.49
+a126f657 patches: refresh for 137.0.7151.55
+f1ccddac patches: refresh for 136.0.7103.59
+274864bb patches: refresh for 135.0.7049.52
+44ff450c patches/proxy-ext-downloads: respect user preferences
+8c91eae4 helium/settings/remove-autofill: fix duplicated removal
+8591fa20 helium/settings: remove autofill navigation & pages
+b0aeb4e2 patches/helium: fix build warnings caused by helium patches (#1177)
+032fefbb patches: update for chromium 146.0.7680.65
+0776559a patches: refresh for chromium 145.0.7632.45
+b2050c2c helium/ui: remove link to password manager from passkey autofill popover

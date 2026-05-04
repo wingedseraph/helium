@@ -1,7 +1,7 @@
 upstream-fixes/missing-dependencies.patch
 
 inox-patchset/fix-building-without-safebrowsing.patch
-
+inox-patchset/disable-autofill-download-manager.patch
 inox-patchset/disable-update-pings.patch
 inox-patchset/disable-rlz.patch
 
