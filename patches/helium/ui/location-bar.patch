@@ -130,7 +130,7 @@
    const page_actions::PageActionViewParams page_action_params{
        .icon_size =
            GetLayoutConstant(LayoutConstant::kLocationBarTrailingIconSize),
-@@ -504,14 +507,11 @@ void LocationBarView::Init() {
+@@ -504,15 +507,11 @@ void LocationBarView::Init() {
      // first so that they appear on the left side of the icon container.
      // TODO(crbug.com/40835681): Improve the ordering heuristics for page action
      // icons and determine a way to handle simultaneous icon animations.
@@ -142,6 +142,7 @@
      }
      params.types_enabled.push_back(PageActionIconType::kClickToCall);
 -    params.types_enabled.push_back(PageActionIconType::kAutofillAddress);
+-    params.types_enabled.push_back(PageActionIconType::kManagePasswords);
 +    params.types_enabled.push_back(PageActionIconType::kManagePasswords);
      if (!apps::features::ShouldShowLinkCapturingUX()) {
        params.types_enabled.push_back(PageActionIconType::kIntentPicker);
