@@ -133,7 +133,7 @@
    root_action_item_->AddChild(
        actions::ActionItem::Builder(
            base::BindRepeating(
-@@ -897,77 +808,7 @@ void BrowserActions::InitializeBrowserAc
+@@ -897,76 +808,6 @@ void BrowserActions::InitializeBrowserAc
            .SetVisible(!sharing_hub::SharingIsDisabledByPolicy(profile))
            .Build());
  
@@ -212,7 +212,7 @@
    if (IsChromeLabsEnabled() && !web_app::AppBrowserController::IsWebApp(bwi)) {
 --- a/chrome/browser/ui/views/translate/translate_bubble_controller.cc
 +++ b/chrome/browser/ui/views/translate/translate_bubble_controller.cc
-@@ -40,12 +40,8 @@ const char kTranslatePartialTranslationS
+@@ -40,11 +40,7 @@ const char kTranslatePartialTranslationS
  
  actions::ActionItem* GetTranslateActionItem(
      actions::ActionItem* root_action_item) {
@@ -236,7 +236,7 @@
        kActionZoomNormal,
        kActionShowFileSystemAccess,
        kActionShowCookieControls,
-@@ -436,13 +434,10 @@ AppBrowserController::GetTitleBarPageAct
+@@ -436,13 +434,9 @@ AppBrowserController::GetTitleBarPageAct
  
    std::vector<PageActionIconType> types_enabled;
    types_enabled.push_back(PageActionIconType::kFind);

@@ -63,7 +63,7 @@
  
    return (ui::TouchUiController::Get()->touch_ui()
                ? kDefaultInternalSpacingTouchUI
-@@ -820,13 +818,13 @@ SkPath IconLabelBubbleView::GetHighlight
+@@ -820,12 +818,12 @@ SkPath IconLabelBubbleView::GetHighlight
    highlight_bounds = GetMirroredRect(highlight_bounds);
  
    const SkRect rect = RectToSkRect(highlight_bounds);
@@ -269,7 +269,7 @@
    }
  
    LocationBarLayout leading_decorations(LocationBarLayout::Position::kLeftEdge,
-@@ -1526,8 +1465,8 @@ int LocationBarView::GetMinimumTrailingW
+@@ -1526,7 +1465,7 @@ int LocationBarView::GetMinimumTrailingW
  }
  
  gfx::Rect LocationBarView::GetLocalBoundsWithoutEndcaps() const {
