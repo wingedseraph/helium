@@ -263,18 +263,20 @@
  }  // namespace
 --- a/chrome/browser/ui/web_applications/app_browser_controller.cc
 +++ b/chrome/browser/ui/web_applications/app_browser_controller.cc
-@@ -409,7 +409,6 @@ std::vector<actions::ActionId> AppBrowse
-
+@@ -409,8 +409,6 @@ std::vector<actions::ActionId> AppBrowse
+ 
    std::vector<actions::ActionId> types_enabled = {
        kActionFind,
+-      kActionShowPasswordsBubbleOrPage,
 -      kActionShowTranslate,
        kActionZoomNormal,
        kActionShowFileSystemAccess,
        kActionShowCookieControls,
-@@ -436,13 +435,9 @@ AppBrowserController::GetTitleBarPageAct
-
+@@ -436,13 +434,8 @@ AppBrowserController::GetTitleBarPageAct
+ 
    std::vector<PageActionIconType> types_enabled;
    types_enabled.push_back(PageActionIconType::kFind);
+-  types_enabled.push_back(PageActionIconType::kManagePasswords);
 -  types_enabled.push_back(PageActionIconType::kTranslate);
    types_enabled.push_back(PageActionIconType::kZoom);
    types_enabled.push_back(PageActionIconType::kFileSystemAccess);
