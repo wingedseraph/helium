@@ -210,42 +210,6 @@
    // TODO(crbug.com/435220196): Ideally this action would have
    // ChromeLabsCoordinator passed in as a dependency directly.
    if (IsChromeLabsEnabled() && !web_app::AppBrowserController::IsWebApp(bwi)) {
-@@ -984,35 +825,6 @@ void BrowserActions::InitializeBrowserAc
-   }
- 
-   root_action_item_->AddChild(
--      ChromeMenuAction(
--          base::BindRepeating(
--              [](BrowserWindowInterface* bwi, TabStripModel* tab_strip_model,
--                 actions::ActionItem* item,
--                 actions::ActionInvocationContext context) {
--                content::WebContents* const web_contents =
--                    tab_strip_model->GetActiveWebContents();
--                if (PasswordsModelDelegateFromWebContents(web_contents)
--                        ->GetState() == password_manager::ui::INACTIVE_STATE) {
--                  chrome::ShowPasswordManager(bwi);
--                } else {
--                  auto* const controller =
--                      ManagePasswordsUIController::FromWebContents(
--                          web_contents);
--                  if (controller->IsShowingBubble()) {
--                    controller->HideBubble(
--                        /*initiated_by_bubble_manager=*/false);
--                  } else {
--                    chrome::ManagePasswordsForPage(bwi);
--                  }
--                }
--              },
--              bwi, tab_strip_model),
--          kActionShowPasswordsBubbleOrPage, IDS_VIEW_PASSWORDS,
--          IDS_VIEW_PASSWORDS, vector_icons::kPasswordManagerIcon)
--          .SetEnabled(!is_guest_session)
--          .Build());
--
--  root_action_item_->AddChild(
-       actions::ActionItem::Builder(
-           base::BindRepeating(
-               [](TabStripModel* tab_strip_model, actions::ActionItem* item,
 --- a/chrome/browser/ui/views/translate/translate_bubble_controller.cc
 +++ b/chrome/browser/ui/views/translate/translate_bubble_controller.cc
 @@ -40,11 +40,7 @@ const char kTranslatePartialTranslationS
@@ -263,20 +227,20 @@
  }  // namespace
 --- a/chrome/browser/ui/web_applications/app_browser_controller.cc
 +++ b/chrome/browser/ui/web_applications/app_browser_controller.cc
-@@ -409,8 +409,6 @@ std::vector<actions::ActionId> AppBrowse
+@@ -409,8 +409,7 @@ std::vector<actions::ActionId> AppBrowse
  
    std::vector<actions::ActionId> types_enabled = {
        kActionFind,
--      kActionShowPasswordsBubbleOrPage,
++      kActionShowPasswordsBubbleOrPage,
 -      kActionShowTranslate,
        kActionZoomNormal,
        kActionShowFileSystemAccess,
        kActionShowCookieControls,
-@@ -436,13 +434,8 @@ AppBrowserController::GetTitleBarPageAct
+@@ -436,13 +434,9 @@ AppBrowserController::GetTitleBarPageAct
  
    std::vector<PageActionIconType> types_enabled;
    types_enabled.push_back(PageActionIconType::kFind);
--  types_enabled.push_back(PageActionIconType::kManagePasswords);
++  types_enabled.push_back(PageActionIconType::kManagePasswords);
 -  types_enabled.push_back(PageActionIconType::kTranslate);
    types_enabled.push_back(PageActionIconType::kZoom);
    types_enabled.push_back(PageActionIconType::kFileSystemAccess);
