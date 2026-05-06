@@ -271,6 +271,7 @@ helium/ui/helium-color-scheme.patch
 helium/ui/improve-flags-webui.patch
 helium/ui/ublock-show-in-settings.patch
 helium/ui/licenses-in-credits.patch
+helium/ui/remove-autofill-link-to-password-manager.patch
 helium/ui/fix-caption-button-bounds.patch
 helium/ui/find-bar.patch
 helium/ui/remove-zoom-action.patch
