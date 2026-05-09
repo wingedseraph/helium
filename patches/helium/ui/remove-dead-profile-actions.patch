@@ -1,8 +1,8 @@
 --- a/chrome/browser/ui/views/profiles/profile_menu_view.cc
 +++ b/chrome/browser/ui/views/profiles/profile_menu_view.cc
-@@ -1050,6 +1050,7 @@ void ProfileMenuView::MaybeBuildGoogleSe
+@@ -1046,6 +1047,7 @@ void ProfileMenuView::MaybeBuildGoogleSe
  }
- 
+
  void ProfileMenuView::MaybeBuildManageGoogleAccountButton() {
 +  return;
    CHECK(!profile().IsGuestSession());
