@@ -1,32 +1,39 @@
 --- a/chrome/app/generated_resources.grd
 +++ b/chrome/app/generated_resources.grd
-@@ -12013,6 +12013,9 @@ Check your passwords anytime in <ph name
+@@ -12013,6 +12013,12 @@ Check your passwords anytime in <ph name
          <message name="IDS_TAB_CXMENU_DUPLICATE" desc="The label of the 'Duplicate' Tab context menu item.">
            Duplicate
          </message>
 +        <message name="IDS_TAB_CXMENU_HIBERNATE" desc="The label of the 'Hibernate' Tab context menu item.">
 +          Hibernate
 +        </message>
++        <message name="IDS_TAB_CXMENU_HIBERNATE_ALL" desc="The label of the 'Hibernate other tabs' Tab context menu item.">
++          Hibernate other tabs
++        </message>
          <message name="IDS_TAB_CXMENU_CLOSETAB" desc="The label of the tab context menu item for closing one or more tabs.">
            Close
          </message>
-@@ -12129,6 +12132,9 @@ Check your passwords anytime in <ph name
+@@ -12129,6 +12135,12 @@ Check your passwords anytime in <ph name
          <message name="IDS_TAB_CXMENU_DUPLICATE" desc="In Title Case: The label of the 'Duplicate' Tab context menu item.">
            Duplicate
          </message>
 +        <message name="IDS_TAB_CXMENU_HIBERNATE" desc="In Title Case: The label of the 'Hibernate' Tab context menu item.">
 +          Hibernate
 +        </message>
++        <message name="IDS_TAB_CXMENU_HIBERNATE_ALL" desc="In Title Case: The label of the 'Hibernate Other Tabs' Tab context menu item.">
++          Hibernate Other Tabs
++        </message>
          <message name="IDS_TAB_CXMENU_CLOSETAB" desc="In Title Case: The label of the tab context menu item for closing one or more tabs.">
            Close
          </message>
 --- a/chrome/browser/ui/tabs/tab_strip_model.h
 +++ b/chrome/browser/ui/tabs/tab_strip_model.h
-@@ -787,6 +787,7 @@ class TabStripModel {
+@@ -787,6 +787,8 @@ class TabStripModel {
      CommandGlicCreateNewChat,
      CommandGlicSwitchToRecentConversation,
      CommandGlicUnshare,
 +    CommandDiscard,
++    CommandDiscardAll,
      CommandLast
    };
    // LINT.ThenChange(//tools/metrics/histograms/metadata/tab/histograms.xml:TabContextMenuCommand)
@@ -107,7 +114,7 @@
  }  // namespace
  
  TabGroupModelFactory::TabGroupModelFactory() {
-@@ -2434,6 +2486,21 @@ bool TabStripModel::IsContextMenuCommand
+@@ -2434,6 +2486,35 @@ bool TabStripModel::IsContextMenuCommand
      case CommandReload:
        return delegate_->CanReload();
  
@@ -126,10 +133,24 @@
 +      return false;
 +    }
 +
++    case CommandDiscardAll: {
++      auto* const eligibility_policy = GetDiscardEligibilityPolicy();
++      if (!eligibility_policy) {
++        return false;
++      }
++
++      for (int i = 0; i < count(); ++i) {
++        if (GetDiscardCandidatePageNode(this, i, eligibility_policy)) {
++          return true;
++        }
++      }
++      return false;
++    }
++
      case CommandCloseOtherTabs:
      case CommandCloseTabsToRight: {
        return !GetIndicesClosedByCommand(context_index, command_id).empty();
-@@ -2598,6 +2665,27 @@ void TabStripModel::ExecuteContextMenuCo
+@@ -2598,6 +2665,47 @@ void TabStripModel::ExecuteContextMenuCo
        }
        break;
      }
@@ -154,17 +175,38 @@
 +      }
 +      break;
 +    }
- 
++
++    case CommandDiscardAll: {
++      auto* const eligibility_policy = GetDiscardEligibilityPolicy();
++      if (!eligibility_policy) {
++        break;
++      }
++
++      for (int i = 0; i < count(); ++i) {
++        base::WeakPtr<performance_manager::PageNode> page_node =
++            GetDiscardCandidatePageNode(this, i, eligibility_policy);
++        if (!page_node) {
++          continue;
++        }
++
++        performance_manager::user_tuning::DiscardPage(
++            page_node.get(), kHibernateDiscardReason,
++            /*ignore_minimum_time_in_background=*/true);
++      }
++      break;
++    }
+
      case CommandCloseTab: {
        base::UmaHistogramCounts1000("Tab.ContextMenu.CloseTab.SelectedTabsCount",
 --- a/chrome/browser/ui/tabs/tab_menu_model.cc
 +++ b/chrome/browser/ui/tabs/tab_menu_model.cc
-@@ -311,6 +311,9 @@ void TabMenuModel::Build(TabStripModel*
+@@ -311,6 +311,10 @@ void TabMenuModel::Build(TabStripModel*
    }
  
    AddSeparator(ui::NORMAL_SEPARATOR);
 +
 +  AddItemWithStringId(TabStripModel::CommandDiscard, IDS_TAB_CXMENU_HIBERNATE);
++  AddItemWithStringId(TabStripModel::CommandDiscardAll, IDS_TAB_CXMENU_HIBERNATE_ALL);
 +
    AddItemWithStringId(TabStripModel::CommandCloseTab, IDS_TAB_CXMENU_CLOSETAB);
    AddItemWithStringId(TabStripModel::CommandCloseOtherTabs,
