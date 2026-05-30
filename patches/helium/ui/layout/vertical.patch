@@ -723,7 +723,7 @@
  namespace tabs {
  
 -inline constexpr int kVerticalTabStripDefaultUncollapsedWidth = 240;
-+inline constexpr int kVerticalTabStripDefaultUncollapsedWidth = 200;
++inline constexpr int kVerticalTabStripDefaultUncollapsedWidth = 300;
  
  // Per-window state for the vertical tab strip.
  struct VerticalTabStripState {
