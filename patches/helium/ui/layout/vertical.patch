@@ -2,20 +2,19 @@
 +++ b/chrome/browser/ui/layout_constants.cc
 @@ -132,15 +132,15 @@ int GetLayoutConstant(LayoutConstant con
      case LayoutConstant::kVerticalTabHeight:
--      return 30;
-+      return 36;
+       return 30;
      case LayoutConstant::kVerticalTabPinnedHeight:
 -      return 32;
-+      return 36;
++      return 30;
      case LayoutConstant::kVerticalTabMinWidth:
 -      return 32;
-+      return 48;
++      return 30;
      case LayoutConstant::kVerticalTabStripUncollapsedPadding:
 -      return 12;
 +      return 6;
      case LayoutConstant::kVerticalTabStripCollapsedHorizontalPadding:
 -      return 12;
-+      return 6;
++      return 3;
      case LayoutConstant::kVerticalTabStripCollapsedVerticalPadding:
 -      return 8;
 +      return 3;
@@ -366,7 +365,7 @@
    // view.
    static constexpr int kUncollapsedMaxWidth = 400;
 -  static constexpr int kCollapsedWidth = 56;
-+  static constexpr int kCollapsedWidth = 60;
++  static constexpr int kCollapsedWidth = 36;
    // TODO(crbug.com/465833741): Determine snapping behavior.
    static constexpr int kCollapseSnapWidth =
        (kUncollapsedMinWidth + kCollapsedWidth) / 2;
@@ -724,7 +723,7 @@
  namespace tabs {
  
 -inline constexpr int kVerticalTabStripDefaultUncollapsedWidth = 240;
-+inline constexpr int kVerticalTabStripDefaultUncollapsedWidth = 350;
++inline constexpr int kVerticalTabStripDefaultUncollapsedWidth = 200;
  
  // Per-window state for the vertical tab strip.
  struct VerticalTabStripState {
