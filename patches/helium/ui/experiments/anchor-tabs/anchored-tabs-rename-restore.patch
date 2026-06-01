@@ -503,10 +503,9 @@
                                     selection_model_.size());
 --- a/chrome/browser/ui/tabs/tab_strip_model.h
 +++ b/chrome/browser/ui/tabs/tab_strip_model.h
-@@ -789,6 +789,7 @@ class TabStripModel {
+@@ -785,6 +785,7 @@ class TabStripModel {
      CommandGlicSwitchToRecentConversation,
      CommandGlicUnshare,
-     CommandDiscard,
 +    CommandRenameTab,
      CommandLast
    };
