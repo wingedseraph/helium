@@ -38,10 +38,12 @@
    }
  
    SetProperty(views::kElementIdentifierKey, kBrowserViewElementId);
-+  zen_top_chrome_animation_.SetSlideDuration(kZenModeRevealAnimationDuration);
++  zen_top_chrome_animation_.SetSlideDuration(
++      gfx::Animation::RichAnimationDuration(kZenModeRevealAnimationDuration));
 +  zen_top_chrome_animation_.SetTweenType(gfx::Tween::FAST_OUT_SLOW_IN_3);
 +  zen_top_chrome_animation_.Reset(1);
-+  zen_side_chrome_animation_.SetSlideDuration(kZenModeRevealAnimationDuration);
++  zen_side_chrome_animation_.SetSlideDuration(
++      gfx::Animation::RichAnimationDuration(kZenModeRevealAnimationDuration));
 +  zen_side_chrome_animation_.SetTweenType(gfx::Tween::FAST_OUT_SLOW_IN_3);
 +  zen_side_chrome_animation_.Reset(1);
  
