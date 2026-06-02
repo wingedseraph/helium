@@ -6,7 +6,7 @@
 +      return 36;
      case LayoutConstant::kVerticalTabPinnedHeight:
 -      return 32;
-+      return 36;
++      return 30;
      case LayoutConstant::kVerticalTabMinWidth:
 -      return 32;
 +      return 48;
