@@ -528,7 +528,7 @@
      }
    }
  
-@@ -324,6 +313,13 @@ void VerticalTabStripController::ToggleT
+@@ -324,6 +313,14 @@ void VerticalTabStripController::ToggleT
                                         group->visual_data()->color(),
                                         !is_currently_collapsed),
          true);
@@ -539,6 +539,7 @@
 +          TabStripUserGestureDetails(
 +              TabStripUserGestureDetails::GestureType::kOther));
 +    }
++    helium::HibernateTabGroup(model_, group->id());
    }
  
    if (should_toggle_group &&
