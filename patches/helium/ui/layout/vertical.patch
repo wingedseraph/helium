@@ -620,7 +620,7 @@
 +          ? LayoutConstant::kVerticalTabStripCollapsedHorizontalPadding
 +          : LayoutConstant::kVerticalTabStripUncollapsedPadding);
 +
-+  flex_layout_->SetInteriorMargin(gfx::Insets::TLBR(6, 0, padding, 0));
++  flex_layout_->SetInteriorMargin(gfx::Insets::TLBR(0, 0, padding, 0));
 +}
 +
  void VerticalTabStripRegionView::OnCollapseStateChanged(
