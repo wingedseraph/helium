@@ -50,7 +50,7 @@
 +      const auto opener_group = GetTabGroupForTab(active_index());
 +
 +      if (count() >= 1 && new_tab_next_to_active) {
-+        if (group_model_ && opener_group && !(add_types & ADD_ACTIVE)) {
++        if (group_model_ && opener_group) {
 +          index = static_cast<int>(
 +              group_model_->GetTabGroup(*opener_group)->ListTabs().end());
 +        } else {
