@@ -528,16 +528,22 @@
      }
    }
  
-@@ -324,6 +313,14 @@ void VerticalTabStripController::ToggleT
+@@ -324,6 +313,20 @@ void VerticalTabStripController::ToggleT
                                         group->visual_data()->color(),
                                         !is_currently_collapsed),
          true);
 +    if (active_group_tab_index.has_value() &&
 +        model_->ContainsIndex(*active_group_tab_index)) {
-+      model_->ActivateTabAt(
-+          *active_group_tab_index,
-+          TabStripUserGestureDetails(
-+              TabStripUserGestureDetails::GestureType::kOther));
++      const std::optional<int> fallback =
++          model_->GetNextExpandedActiveTab(group->id());
++      if (fallback.has_value()) {
++        model_->ActivateTabAt(
++            fallback.value(),
++            TabStripUserGestureDetails(
++                TabStripUserGestureDetails::GestureType::kOther));
++      } else {
++        model_->delegate()->AddTabAt(GURL(), -1, true);
++      }
 +    }
 +    helium::HibernateTabGroup(model_, group->id());
    }

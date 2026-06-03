@@ -9,7 +9,7 @@
 +      return 30;
      case LayoutConstant::kVerticalTabMinWidth:
 -      return 32;
-+      return 48;
++      return 30;
      case LayoutConstant::kVerticalTabStripUncollapsedPadding:
 -      return 12;
 +      return 6;
