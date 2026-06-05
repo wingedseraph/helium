@@ -3082,12 +3082,18 @@
 +    return false;
 +  }
 +
++  content::WebContents* const web_contents =
++      model->GetWebContentsAt(model_index);
++  if (!web_contents || web_contents->WasDiscarded()) {
++    return false;
++  }
++
 +  if (model_index == model->active_index() &&
 +      !ActivateFallbackTab(model, model_index, group)) {
 +    return false;
 +  }
 +
-+  return HibernateWebContents(model->GetWebContentsAt(model_index));
++  return HibernateWebContents(web_contents);
 +}
 +
 +bool HibernateTabGroup(TabStripModel* model, tab_groups::TabGroupId group) {
@@ -3103,6 +3109,9 @@
 +  const gfx::Range tab_range =
 +      model->group_model()->GetTabGroup(group)->ListTabs();
 +  for (int model_index : tab_range.ToIntVector()) {
++    if (model_index == model->active_index()) {
++      continue;
++    }
 +    content::WebContents* const web_contents =
 +        model->GetWebContentsAt(model_index);
 +    any_hibernated |= HibernateWebContents(web_contents);

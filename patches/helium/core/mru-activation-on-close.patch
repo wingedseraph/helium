@@ -27,7 +27,7 @@ during session restore).
 +        continue;
 +      }
 +      content::WebContents* contents = GetWebContentsAt(i);
-+      if (!contents) {
++      if (!contents || contents->WasDiscarded()) {
 +        continue;
 +      }
 +      base::TimeTicks last_active = contents->GetLastActiveTimeTicks();
