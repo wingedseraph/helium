@@ -40,21 +40,26 @@
  #include "components/reading_list/core/reading_list_model.h"
  #include "components/split_tabs/split_tab_id.h"
  #include "components/split_tabs/split_tab_visual_data.h"
-@@ -1747,7 +1749,20 @@ void TabStripModel::AddTab(std::unique_p
+@@ -1747,7 +1749,25 @@ void TabStripModel::AddTab(std::unique_p
      // For all other types, respect what was passed to us, normalizing -1s and
      // values that are too large.
      if (index < 0 || index > count()) {
 -      index = count();
 +      const bool new_tab_next_to_active =
 +          profile_->GetPrefs()->GetBoolean(prefs::kNewTabNextToActive);
-+      const auto opener_group = GetTabGroupForTab(active_index());
++      const int current_active = active_index();
++      const auto opener_group =
++          (count() >= 1 && ContainsIndex(current_active))
++              ? GetTabGroupForTab(current_active)
++              : std::nullopt;
 +
-+      if (count() >= 1 && new_tab_next_to_active) {
++      if (count() >= 1 && new_tab_next_to_active &&
++          ContainsIndex(current_active)) {
 +        if (group_model_ && opener_group) {
 +          index = static_cast<int>(
 +              group_model_->GetTabGroup(*opener_group)->ListTabs().end());
 +        } else {
-+          index = active_index() + 1;
++          index = current_active + 1;
 +        }
 +      } else {
 +        index = count();
