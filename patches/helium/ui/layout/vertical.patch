@@ -1,9 +1,8 @@
 --- a/chrome/browser/ui/layout_constants.cc
 +++ b/chrome/browser/ui/layout_constants.cc
-@@ -132,15 +132,15 @@ int GetLayoutConstant(LayoutConstant con
+@@ -132,14 +132,14 @@ int GetLayoutConstant(LayoutConstant con
      case LayoutConstant::kVerticalTabHeight:
--      return 30;
-+      return 36;
+       return 30;
      case LayoutConstant::kVerticalTabPinnedHeight:
 -      return 32;
 +      return 30;
