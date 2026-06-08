@@ -2,8 +2,7 @@
 +++ b/chrome/browser/ui/layout_constants.cc
 @@ -132,14 +132,14 @@ int GetLayoutConstant(LayoutConstant con
      case LayoutConstant::kVerticalTabHeight:
--      return 30;
-+      return 36;
+       return 30;
      case LayoutConstant::kVerticalTabPinnedHeight:
 -      return 32;
 +      return 30;
@@ -717,16 +716,6 @@
    }
  
    if (child_view == close_button_) {
---- a/chrome/browser/ui/views/tabs/vertical/vertical_pinned_tab_container_view.cc
-+++ b/chrome/browser/ui/views/tabs/vertical/vertical_pinned_tab_container_view.cc
-@@ -185,7 +185,7 @@ gfx::Size VerticalPinnedTabContainerView
-       static_cast<float>(num_children));
-   const int min_height =
--      base::ClampCeil(GetLayoutConstant(LayoutConstant::kVerticalTabHeight) *
-+      base::ClampCeil(GetLayoutConstant(LayoutConstant::kVerticalTabPinnedHeight) *
-                       min_rows) +
-       (num_children > 1 ? kTabPadding : 0);
-   return gfx::Size(GetLayoutConstant(LayoutConstant::kVerticalTabMinWidth),
 --- a/chrome/browser/ui/tabs/vertical_tab_strip_state.h
 +++ b/chrome/browser/ui/tabs/vertical_tab_strip_state.h
 @@ -7,7 +7,7 @@
