@@ -611,7 +611,7 @@
 +  gfx::Size CalculatePreferredSize(
 +      const views::SizeBounds& available_size) const override {
 +    return gfx::Size(kAnchoredGroupIndicatorWidth,
-+                     GetLayoutConstant(LayoutConstant::kVerticalTabHeight));
++                     30);
 +  }
 +
 +  void OnPaint(gfx::Canvas* canvas) override {
