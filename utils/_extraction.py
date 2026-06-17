@@ -119,7 +119,7 @@ def _extract_tar_with_7z(binary, archive_path, output_dir, relative_to):
 
 def _extract_tar_with_tar(binary, archive_path, output_dir, relative_to):
     get_logger().debug('Using BSD or GNU tar extractor')
-    output_dir.mkdir(exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
     cmd = (binary, '-xf', str(archive_path), '-C', str(output_dir))
     get_logger().debug('tar command line: %s', ' '.join(cmd))
     result = subprocess.run(cmd, check=False)
@@ -134,7 +134,7 @@ def _extract_tar_with_tar(binary, archive_path, output_dir, relative_to):
 
 def _extract_tar_with_winrar(binary, archive_path, output_dir, relative_to):
     get_logger().debug('Using WinRAR extractor')
-    output_dir.mkdir(exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
     cmd = (binary, 'x', '-o+', str(archive_path), str(output_dir))
     get_logger().debug('WinRAR command line: %s', ' '.join(cmd))
     result = subprocess.run(cmd, check=False)
