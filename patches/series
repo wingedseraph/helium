@@ -197,7 +197,6 @@ helium/core/simplify-context-menu.patch
 
 helium/settings/settings-page-icons.patch
 helium/settings/move-search-suggest.patch
-helium/settings/remove-autofill.patch
 helium/settings/remove-profile-page-sections.patch
 helium/settings/fix-page-names.patch
 helium/settings/disable-safety-hub-page.patch
@@ -219,7 +218,6 @@ helium/settings/custom-keyboard-shortcuts-page.patch
 helium/settings/clear-browsing-data-popup.patch
 
 helium/hop/setup.patch
-helium/hop/disable-password-manager.patch
 
 helium/ui/layout-constants.patch
 helium/ui/layout-provider.patch
@@ -286,6 +284,7 @@ helium/ui/remove-autofill-link-to-password-manager.patch
 helium/ui/fix-caption-button-bounds.patch
 helium/ui/find-bar.patch
 helium/ui/remove-zoom-action.patch
+helium/ui/restore-password-page-action.patch
 helium/ui/custom-keyboard-shortcuts-wiring.patch
 
 helium/ui/layout/migrate-prefs.patch
