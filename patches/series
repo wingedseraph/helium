@@ -194,7 +194,6 @@ helium/core/close-tabs-to-left.patch
 helium/core/custom-keyboard-shortcuts.patch
 helium/core/copy-url-tab-context-menu.patch
 helium/core/simplify-context-menu.patch
-helium/core/nested-tabs.patch
 
 helium/settings/settings-page-icons.patch
 helium/settings/move-search-suggest.patch
@@ -312,3 +311,4 @@ helium/ui/hide-pip-live-caption-button.patch
 helium/ui/disable-ink-ripple-effect.patch
 helium/ui/dont-antialias-rects.patch
 helium/ui/fix-windows-ui-position.patch
+helium/core/nested-tabs.patch
