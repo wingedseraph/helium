@@ -4080,9 +4080,9 @@
    // TabStripModel, for example...
 --- a/chrome/browser/ui/tabs/tab_strip_model_unittest.cc
 +++ b/chrome/browser/ui/tabs/tab_strip_model_unittest.cc
-@@ -7274,3 +7274,26 @@ TEST_P(TabStripModelTest, ReinsertTabGro
-   EXPECT_EQ("active=2 anchor=2 selection=2 4",
-             tabstrip()->selection_model().GetListSelectionModel().ToString());
+@@ -7347,3 +7347,26 @@
+   tabstrip()->MoveWebContentsAt(0, 1, false);
+   EXPECT_TRUE(was_notified);
  }
 +
 +TEST_F(TabStripModelTest, NestCreatesNewNestedCollection) {
