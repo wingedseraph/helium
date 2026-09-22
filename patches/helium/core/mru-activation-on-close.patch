@@ -1,0 +1,48 @@
+Activate the most recently used tab when the active tab is closed, instead of
+the adjacent tab. Falls back to the original Chromium behavior (opener-based,
+then adjacent) when no MRU candidate has a valid last-active timestamp (e.g.
+during session restore).
+
+--- a/chrome/browser/ui/tabs/tab_strip_model_order_controller.cc
++++ b/chrome/browser/ui/tabs/tab_strip_model_order_controller.cc
+@@ -7,6 +7,8 @@
+ #include <optional>
+
+ #include "base/check.h"
++#include "base/time/time.h"
++#include "content/public/browser/web_contents.h"
+ #include "chrome/browser/ui/tabs/tab_strip_model.h"
+
+ ///////////////////////////////////////////////////////////////////////////////
+@@ -21,7 +23,32 @@ TabStripModelOrderController::~TabStripModelOrderController() = default;
+ std::optional<int> TabStripModelOrderController::DetermineNewSelectedIndex(
+     int removing_index) const {
+   DCHECK(tabstrip_->ContainsIndex(removing_index));
++
++  {
++    const int n = tabstrip_->count();
++    if (n > 1) {
++      base::TimeTicks best_time;
++      int best_index = -1;
++      for (int i = 0; i < n; ++i) {
++        if (i == removing_index) {
++          continue;
++        }
++        content::WebContents* contents = tabstrip_->GetWebContentsAt(i);
++        if (!contents) {
++          continue;
++        }
++        base::TimeTicks last_active = contents->GetLastActiveTimeTicks();
++        if (last_active > best_time) {
++          best_time = last_active;
++          best_index = i;
++        }
++      }
++      if (best_index >= 0 && best_time > base::TimeTicks()) {
++        return best_index > removing_index ? best_index - 1 : best_index;
++      }
++    }
++  }
+
+   int tab_count = tabstrip_->count();
+   if (tab_count <= 1) {
