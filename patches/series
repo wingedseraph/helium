@@ -257,7 +257,6 @@ helium/settings/network-and-security-page.patch
 helium/settings/sync-setup-contract.patch
 
 helium/hop/setup.patch
-helium/hop/disable-password-manager.patch
 
 helium/ui/layout-constants.patch
 helium/ui/layout-provider.patch
