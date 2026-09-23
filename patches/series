@@ -363,4 +363,3 @@ helium/ui/progress-bar.patch
 helium/ui/exclusive-access-bubble.patch
 helium/core/mru-activation-on-close.patch
 helium/ui/restore-password-page-action.patch
-helium/core/nested-tabs.patch
