@@ -363,3 +363,6 @@ helium/ui/exclusive-access-bubble.patch
 helium/ui/restore-password-page-action.patch
 helium/ui/tab-height-36.patch
 helium/ui/address-bar-in-sidebar.patch
+helium/core/visual-tab-switcher.patch
+helium/settings/visual-tab-switcher.patch
+helium/ui/visual-tab-switcher.patch
