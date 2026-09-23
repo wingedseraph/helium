@@ -362,3 +362,4 @@ helium/ui/progress-bar.patch
 helium/ui/exclusive-access-bubble.patch
 helium/ui/restore-password-page-action.patch
 helium/ui/tab-height-36.patch
+helium/ui/address-bar-in-sidebar.patch
